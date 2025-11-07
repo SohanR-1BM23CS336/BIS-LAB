@@ -1,3 +1,23 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+class GreyWolfOptimizer:
+    def __init__(self, obj_func, dim, n_wolves, max_iter):
+        self.obj_func = obj_func
+        self.dim = dim
+        self.n_wolves = n_wolves
+        self.max_iter = max_iter
+
+        self.positions = np.random.uniform(low=-100, high=100, size=(n_wolves, dim))
+        self.alpha_pos = np.zeros(dim)
+        self.beta_pos = np.zeros(dim)
+        self.delta_pos = np.zeros(dim)
+        self.alpha_score = float('inf')
+        self.beta_score = float('inf')
+        self.delta_score = float('inf')
+
+        self.convergence_curve = []
+
     def optimize(self):
         for iter in range(self.max_iter):
             for i in range(self.n_wolves):
@@ -15,7 +35,7 @@
                     self.delta_score = fitness
                     self.delta_pos = self.positions[i].copy()
 
-            a = 2 - iter * (2 / self.max_iter) 
+            a = 2 - iter * (2 / self.max_iter)
 
             for i in range(self.n_wolves):
                 for d in range(self.dim):
@@ -43,8 +63,13 @@
 
         return self.alpha_pos, self.alpha_score
 
+def objective_function(x):
+    return np.sum(x**2)
+
 if __name__ == "__main__":
     gwo = GreyWolfOptimizer(objective_function, dim=5, n_wolves=30, max_iter=100)
+    gwo.lb = -100
+    gwo.ub = 100
     best_pos, best_val = gwo.optimize()
 
     print("Best solution found:", best_pos)
