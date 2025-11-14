@@ -2,7 +2,7 @@ import numpy as np
 from skimage import data, color, filters, img_as_float
 from concurrent.futures import ThreadPoolExecutor
 
-img = color.rgb2gray(img_as_float(data.coins()))
+img = img_as_float(data.coins())
 rows, cols = img.shape
 population_size = 10
 population = [np.random.rand(rows, cols) for _ in range(population_size)]
