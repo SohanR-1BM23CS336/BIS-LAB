@@ -33,6 +33,6 @@ for _ in range(20):
 
 best = max(population, key=fitness)
 import matplotlib.pyplot as plt
-plt.imshow(filters.sobel(best), cmap='gray')
+plt.imshow(filters.sobel(best), cmap='viridis') # Changed cmap to 'viridis'
 plt.axis('off')
 plt.show()
